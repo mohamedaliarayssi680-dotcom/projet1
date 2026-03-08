@@ -42,7 +42,7 @@ const LeaderBoard = lazy(() => import("./pages/LeaderBoard"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
-// ✅ NEW: Admin Dashboard
+
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 // Router
@@ -157,7 +157,7 @@ function AppContent() {
       case "/how-it-works":
         pageTitle = "Comment ça marche | Friends Best Center";
         break;
-      // ✅ NEW: Admin page title
+      //  NEW: Admin page title
       case "/admin/dashboard":
         pageTitle = "Admin Dashboard | Friends Best Center";
         break;
@@ -207,7 +207,7 @@ function AppContent() {
             <Route path="/cookies" element={<CookiePolicyPage />} />
             <Route path="/terms-of-use" element={<TermsOfUsePage />} />
             <Route path="/how-it-works" element={<HowItWorks />} />
-            {/* ✅ NEW: Admin Dashboard Route */}
+            {/* NEW: Admin Dashboard Route */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -240,5 +240,4 @@ function App() {
   );
 }
 
-// ✅ IMPORTANT: Export par défaut requis
 export default App;

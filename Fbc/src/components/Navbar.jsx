@@ -16,7 +16,7 @@ import {
   BookOpen,
   Zap,
   LogIn,
-  UserPlus,
+  LogOut,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
@@ -53,12 +53,19 @@ const ModernNavbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef(null);
   const smoothScroll = useSmoothScroll();
+
+  // ✅ Vérifier la session admin au montage
+  useEffect(() => {
+    const session = localStorage.getItem("adminSession");
+    setIsAdminLoggedIn(!!session);
+  }, [location.pathname]);
 
   // Navigation links
   const navLinks = useMemo(
@@ -147,6 +154,15 @@ const ModernNavbar = () => {
     },
     [navigate],
   );
+
+  // ✅ Gestion déconnexion admin
+  const handleAdminLogout = useCallback(() => {
+    localStorage.removeItem("adminSession");
+    setIsAdminLoggedIn(false);
+    navigate("/");
+    setIsMenuOpen(false);
+    setIsDropdownOpen(false);
+  }, [navigate]);
 
   // Scroll detection
   useEffect(() => {
@@ -316,21 +332,40 @@ const ModernNavbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-2">
-            {/* Login Button */}
-            <Link
-              to="/login"
-              className={`
-                px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2
-                ${
-                  isDarkMode
-                    ? "bg-gray-800 hover:bg-gray-700 text-white border border-gray-700"
-                    : "bg-gray-100 hover:bg-gray-200 text-[#0A2E5A] border border-gray-300"
-                }
-              `}
-            >
-              <LogIn className="w-4 h-4" />
-              Connexion
-            </Link>
+            {/* ✅ Login/Logout Button - Conditionnel (Dashboard supprimé) */}
+            {isAdminLoggedIn ? (
+              /* Bouton Déconnexion uniquement */
+              <button
+                onClick={handleAdminLogout}
+                className={`
+                  px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2
+                  ${
+                    isDarkMode
+                      ? "bg-red-900/30 hover:bg-red-900/50 text-red-400 border border-red-800"
+                      : "bg-red-50 hover:bg-red-100 text-red-600 border border-red-200"
+                  }
+                `}
+              >
+                <LogOut className="w-4 h-4" />
+                Déconnexion
+              </button>
+            ) : (
+              /* Bouton Connexion (par défaut) */
+              <Link
+                to="/login"
+                className={`
+                  px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2
+                  ${
+                    isDarkMode
+                      ? "bg-gray-800 hover:bg-gray-700 text-white border border-gray-700"
+                      : "bg-gray-100 hover:bg-gray-200 text-[#0A2E5A] border border-gray-300"
+                  }
+                `}
+              >
+                <LogIn className="w-4 h-4" />
+                Connexion
+              </Link>
+            )}
 
             {/* Contact Button */}
             <Link
@@ -431,19 +466,32 @@ const ModernNavbar = () => {
             ))}
           </div>
 
-          {/* Mobile CTA Buttons */}
+          {/* ✅ Mobile CTA Buttons - Conditionnels (Dashboard supprimé) */}
           <div className="pt-6 space-y-3">
-            {/* Login Button - Mobile */}
-            <Link
-              to="/login"
-              onClick={() => setIsMenuOpen(false)}
-              className={`block w-full px-5 py-3.5 rounded-xl text-center font-semibold text-sm border transition-all ${isDarkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "border-gray-300 text-[#0A2E5A] hover:bg-gray-100"}`}
-            >
-              <span className="flex items-center justify-center gap-2">
-                <LogIn className="w-4 h-4" />
-                Connexion
-              </span>
-            </Link>
+            {isAdminLoggedIn ? (
+              /* Bouton Déconnexion - Mobile uniquement */
+              <button
+                onClick={handleAdminLogout}
+                className={`block w-full px-5 py-3.5 rounded-xl text-center font-semibold text-sm border transition-all ${isDarkMode ? "border-red-800 text-red-400 hover:bg-red-900/20" : "border-red-200 text-red-600 hover:bg-red-50"}`}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <LogOut className="w-4 h-4" />
+                  Déconnexion
+                </span>
+              </button>
+            ) : (
+              /* Bouton Connexion - Mobile (par défaut) */
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className={`block w-full px-5 py-3.5 rounded-xl text-center font-semibold text-sm border transition-all ${isDarkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "border-gray-300 text-[#0A2E5A] hover:bg-gray-100"}`}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <LogIn className="w-4 h-4" />
+                  Connexion
+                </span>
+              </Link>
+            )}
 
             {/* Contact Button - Mobile */}
             <Link

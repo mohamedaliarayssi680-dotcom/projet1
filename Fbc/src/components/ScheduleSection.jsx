@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
-// ✅ Import des 4 images de fond (sch9 supprimé, sch28 + sch29 ajoutés)
+//  Import des 4 images de fond (sch9 supprimé, sch28 + sch29 ajoutés)
 import sch7 from "../assets/sch7.jpg";
 import sch8 from "../assets/sch8.jpg";
 import sch28 from "../assets/sch28.jpeg"; // Nouvelle image
@@ -21,7 +21,7 @@ const BackgroundSliderSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loadedImages, setLoadedImages] = useState({});
 
-  // ✅ 4 slides au total
+  //  4 slides au total
   const slides = [sch7, sch8, sch28, sch29];
 
   // Preload images to avoid blank spaces

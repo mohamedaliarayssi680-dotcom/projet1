@@ -15,10 +15,10 @@ import {
   Heart,
   GraduationCap,
   MessageCircle,
+  ArrowUpRight,
 } from "lucide-react";
 import { useRef } from "react";
 
-// Import de la nouvelle image
 import sch30 from "../assets/sch30.jpeg";
 import tunisiaFlag from "../assets/sch10.jpg";
 
@@ -27,7 +27,6 @@ const TunisiaSuccessSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
-  // ✅ Nouvelles valeurs F.B.C (pas de stats, que de l'engagement)
   const commitments = [
     {
       icon: HeartHandshake,
@@ -55,7 +54,6 @@ const TunisiaSuccessSection = () => {
     },
   ];
 
-  // ✅ Timeline tournée vers l'avenir (pas le passé)
   const vision = [
     { year: "2025", label: "Lancement F.B.C", icon: Calendar },
     { year: "2026", label: "Déploiement Régional", icon: MapPin },
@@ -64,7 +62,6 @@ const TunisiaSuccessSection = () => {
     { year: "2029", label: "Excellence Reconnue", icon: Sparkles },
   ];
 
-  // ✅ Icônes décoratives pour les espaces vides
   const decorativeIcons = [
     { Icon: BookOpen, color: "#0A2E5A", delay: 0, position: "left-4 top-8" },
     { Icon: Heart, color: "#D4AF37", delay: 0.2, position: "right-4 top-12" },
@@ -97,9 +94,7 @@ const TunisiaSuccessSection = () => {
   return (
     <section
       ref={sectionRef}
-      className={`relative py-20 lg:py-28 overflow-hidden ${
-        isDarkMode ? "bg-gray-900" : "bg-white"
-      }`}
+      className={`relative py-16 lg:py-24 overflow-hidden ${isDarkMode ? "bg-gray-900" : "bg-gradient-to-b from-gray-50 to-white"}`}
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -113,146 +108,312 @@ const TunisiaSuccessSection = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Header */}
+        {/*  HEADER EXPANDÉ - Flag + Titre plein écran */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-12 lg:mb-16"
+          className="w-full mb-14 lg:mb-20"
         >
-          {/* Tunisia Flag */}
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block mb-6"
-          >
-            <div
-              className={`relative rounded-2xl overflow-hidden shadow-2xl border-4 ${isDarkMode ? "border-[#D4AF37]/40" : "border-[#0A2E5A]/20"}`}
-            >
-              <img
-                src={tunisiaFlag}
-                alt="Drapeau de la Tunisie"
-                className="w-24 h-16 sm:w-32 sm:h-20 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
-            </div>
-          </motion.div>
-
-          {/* Badge */}
+          {/* Full-width banner with flag */}
           <div
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 ${isDarkMode ? "bg-[#0A2E5A]/30 text-[#D4AF37] border border-[#D4AF37]/30" : "bg-[#0A2E5A]/10 text-[#0A2E5A] border border-[#0A2E5A]/20"}`}
+            className={`w-full rounded-3xl p-6 lg:p-10 ${
+              isDarkMode
+                ? "bg-gradient-to-r from-[#0A2E5A]/40 via-[#0A2E5A]/30 to-[#D4AF37]/30 border border-[#D4AF37]/30"
+                : "bg-gradient-to-r from-[#0A2E5A]/15 via-[#0A2E5A]/10 to-[#D4AF37]/15 border border-[#0A2E5A]/20"
+            } backdrop-blur-sm`}
           >
-            <Sparkles size={14} className="fill-current" />
-            <span className="text-xs font-bold uppercase tracking-wider">
-              Notre Engagement
-            </span>
-          </div>
-
-          <h2
-            className={`text-3xl md:text-5xl font-black ${isDarkMode ? "text-white" : "text-[#0A2E5A]"}`}
-          >
-            Une école qui <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F2D06B]">
-              vous ressemble
-            </span>
-          </h2>
-
-          <p
-            className={`mt-4 text-lg max-w-2xl mx-auto ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
-          >
-            Chez F.B.C, nous croyons que chaque personne mérite une chance de
-            progresser. Notre force ? L'humain avant tout.
-          </p>
-        </motion.div>
-
-        {/* ✅ IMAGE sch30.jpeg - NETTE + ICÔNES DÉCORATIVES (CORRIGÉ: PAS DE DUPLICATE TRANSITION) */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mb-16"
-        >
-          <div className="relative max-w-4xl mx-auto">
-            {/* Decorative Frame - BLUR SEULEMENT SUR LE CADRE */}
-            <div
-              className={`absolute -inset-4 rounded-3xl ${isDarkMode ? "bg-gradient-to-r from-[#0A2E5A]/30 to-[#D4AF37]/20" : "bg-gradient-to-r from-[#0A2E5A]/10 to-[#D4AF37]/10"} blur-xl`}
-            />
-
-            {/* Image Frame - BORDER NETTE */}
-            <div
-              className={`relative rounded-2xl overflow-hidden shadow-2xl border-2 ${isDarkMode ? "border-[#D4AF37]/30" : "border-[#0A2E5A]/20"} bg-white`}
-            >
-              {/* ✅ ICÔNES DÉCORATIVES - TRANSITION UNIQUE (CORRIGÉ) */}
-              {decorativeIcons.map((item, index) => (
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10">
+              {/* Flag + Text - Left side */}
+              <div className="flex items-center gap-5">
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  animate={{
-                    y: [0, -6, 0],
-                    rotate: [0, item.position.includes("left") ? 5 : -5, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: item.delay,
-                  }}
-                  className={`absolute ${item.position} pointer-events-none z-10 hidden sm:flex`}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative"
                 >
                   <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center ${isDarkMode ? "bg-gray-900/60" : "bg-white/60"} backdrop-blur-sm border ${isDarkMode ? "border-gray-700" : "border-gray-200"}`}
-                    style={{ boxShadow: `0 4px 20px ${item.color}20` }}
+                    className={`rounded-2xl overflow-hidden shadow-xl border-4 ${
+                      isDarkMode ? "border-[#D4AF37]/40" : "border-[#0A2E5A]/20"
+                    }`}
                   >
-                    <item.Icon
-                      size={20}
-                      style={{ color: item.color }}
-                      className="opacity-80"
+                    <img
+                      src={tunisiaFlag}
+                      alt="Drapeau de la Tunisie"
+                      className="w-20 h-14 sm:w-28 sm:h-20 object-cover"
                     />
                   </div>
+                  {/* Animated glow around flag */}
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    className={`absolute inset-0 rounded-2xl blur-xl ${
+                      isDarkMode ? "bg-[#D4AF37]/30" : "bg-[#0A2E5A]/20"
+                    }`}
+                  />
                 </motion.div>
-              ))}
 
-              {/* ✅ IMAGE NETTE : object-contain pour préserver les proportions */}
-              <img
-                src={sch30}
-                alt="L'équipe F.B.C à vos côtés"
-                className="w-full h-auto max-h-96 object-contain bg-white p-4 lg:p-8"
-                style={{ imageRendering: "auto" }}
-              />
-
-              {/* Overlay léger UNIQUEMENT en bas pour la lisibilité du texte */}
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-
-              {/* Caption - Positionnée en bas sans cacher l'image */}
-              <div className="absolute bottom-4 left-6 right-6 flex items-center gap-3 z-20">
-                <div className="w-10 h-10 rounded-lg bg-[#D4AF37] flex items-center justify-center flex-shrink-0">
-                  <Users className="w-5 h-5 text-white" />
+                <div className="text-left">
+                  <div
+                    className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-2 ${
+                      isDarkMode
+                        ? "bg-[#0A2E5A]/40 text-[#D4AF37] border border-[#D4AF37]/30"
+                        : "bg-[#0A2E5A]/15 text-[#0A2E5A] border border-[#0A2E5A]/20"
+                    }`}
+                  >
+                    <Sparkles size={13} className="fill-current" />
+                    <span className="text-xs font-bold uppercase tracking-wider">
+                      Notre Engagement
+                    </span>
+                  </div>
+                  <h2
+                    className={`text-2xl lg:text-3xl font-black ${
+                      isDarkMode ? "text-white" : "text-[#0A2E5A]"
+                    }`}
+                  >
+                    Une école qui{" "}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F2D06B]">
+                      vous ressemble
+                    </span>
+                  </h2>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-white font-semibold text-sm truncate">
-                    Une équipe à votre écoute
-                  </p>
-                  <p className="text-white/80 text-xs truncate">
-                    Formateurs engagés • Accompagnement personnalisé
-                  </p>
+              </div>
+
+              {/* Description + Stats - Right side */}
+              <div className="text-center lg:text-right">
+                <p
+                  className={`text-base lg:text-lg max-w-md mb-4 ${
+                    isDarkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
+                  Chez F.B.C, nous croyons que chaque personne mérite une chance
+                  de progresser. Notre force ? L'humain avant tout.
+                </p>
+                <div className="flex justify-center lg:justify-end gap-6">
+                  <div className="text-center">
+                    <p
+                      className={`text-2xl font-black ${isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"}`}
+                    >
+                      98%
+                    </p>
+                    <p
+                      className={`text-xs ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}
+                    >
+                      Satisfaction
+                    </p>
+                  </div>
+                  <div className={`w-px bg-gray-300 dark:bg-gray-700`} />
+                  <div className="text-center">
+                    <p
+                      className={`text-2xl font-black ${isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"}`}
+                    >
+                      4
+                    </p>
+                    <p
+                      className={`text-xs ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}
+                    >
+                      Domaines
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* ✅ Nouvelles cartes d'engagement (pas de stats) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16">
+        {/*  IMAGE sch30.jpeg - PRÉSENTATION MODERNE */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="mb-14 lg:mb-20"
+        >
+          <div className="relative max-w-5xl mx-auto">
+            {/* Main Image Card - Modern split layout */}
+            <div
+              className={`relative rounded-3xl overflow-hidden shadow-2xl ${
+                isDarkMode
+                  ? "bg-gray-800/60 border border-gray-700/50"
+                  : "bg-white border border-gray-200/50"
+              } backdrop-blur-sm`}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                {/* Image side - Left */}
+                <div className="relative h-72 lg:h-auto lg:min-h-[400px]">
+                  <img
+                    src={sch30}
+                    alt="L'équipe F.B.C à vos côtés"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Gradient overlay for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent lg:bg-gradient-to-r" />
+
+                  {/* Floating badge on image */}
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="absolute bottom-5 left-5 flex items-center gap-3"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-[#D4AF37] flex items-center justify-center shadow-lg">
+                      <Users className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="hidden sm:block">
+                      <p className="text-white font-bold text-lg">
+                        Notre Équipe
+                      </p>
+                      <p className="text-white/85 text-sm">
+                        Engagée • Bienveillante • Expert
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  {/* Decorative floating icons on image */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {[...Array(3)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        animate={{
+                          y: [0, -15, 0],
+                          opacity: [0.4, 0.8, 0.4],
+                        }}
+                        transition={{
+                          duration: 4 + i,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: i * 0.5,
+                        }}
+                        className={`absolute w-2 h-2 rounded-full ${i % 2 === 0 ? "bg-[#D4AF37]/60" : "bg-[#0A2E5A]/60"}`}
+                        style={{
+                          top: `${30 + i * 20}%`,
+                          left: `${20 + i * 15}%`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Content side - Right */}
+                <div className="p-6 lg:p-8 flex flex-col justify-center">
+                  <div className="space-y-5">
+                    <div>
+                      <h3
+                        className={`text-2xl lg:text-3xl font-bold mb-3 ${
+                          isDarkMode ? "text-white" : "text-[#0A2E5A]"
+                        }`}
+                      >
+                        Une équipe à votre écoute
+                      </h3>
+                      <p
+                        className={`text-base leading-relaxed ${
+                          isDarkMode ? "text-gray-300" : "text-gray-600"
+                        }`}
+                      >
+                        Nos formateurs certifiés et bienveillants vous
+                        accompagnent pas à pas, avec des méthodes adaptées à
+                        votre rythme et vos objectifs.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      {[
+                        {
+                          icon: CheckCircle2,
+                          text: "Accompagnement sur-mesure",
+                        },
+                        { icon: CheckCircle2, text: "Suivi régulier" },
+                        { icon: CheckCircle2, text: "Méthodes adaptées" },
+                        {
+                          icon: CheckCircle2,
+                          text: "Environnement bienveillant",
+                        },
+                      ].map((item, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4 + idx * 0.1 }}
+                          className="flex items-center gap-2"
+                        >
+                          <item.icon
+                            size={16}
+                            className={
+                              isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"
+                            }
+                          />
+                          <span
+                            className={`text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}
+                          >
+                            {item.text}
+                          </span>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    <motion.a
+                      href="contact"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white transition-all shadow-md hover:shadow-lg"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #0A2E5A 0%, #1a4a7a 100%)",
+                        border: "1px solid rgba(212, 175, 55, 0.3)",
+                      }}
+                    >
+                      Nous contacter <ArrowUpRight size={16} />
+                    </motion.a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative icons around image */}
+            {decorativeIcons.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.7 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                animate={{
+                  y: [0, -8, 0],
+                  rotate: [0, item.position.includes("left") ? 8 : -8, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: item.delay,
+                }}
+                className={`absolute ${item.position} pointer-events-none z-10 hidden lg:flex`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${isDarkMode ? "bg-gray-800/70" : "bg-white/70"} backdrop-blur-sm border ${isDarkMode ? "border-gray-700" : "border-gray-200"} shadow-lg`}
+                  style={{ boxShadow: `0 6px 24px ${item.color}25` }}
+                >
+                  <item.Icon
+                    size={22}
+                    style={{ color: item.color }}
+                    className="opacity-90"
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/*  Commitments Cards - Grid 4 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-14 lg:mb-20">
           {commitments.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className={`group relative p-6 rounded-2xl ${isDarkMode ? "bg-gray-800/40 border border-gray-700/40" : "bg-gray-50/40 border border-gray-200/40"} backdrop-blur-sm`}
+              className={`group relative p-5 lg:p-6 rounded-2xl ${
+                isDarkMode
+                  ? "bg-gray-800/50 border border-gray-700/50 hover:border-[#D4AF37]/50"
+                  : "bg-white/60 border border-gray-200/50 hover:border-[#0A2E5A]/40"
+              } backdrop-blur-sm shadow-md hover:shadow-lg transition-all`}
             >
-              {/* Icon 3D */}
               <div
                 className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
                 style={{
@@ -263,20 +424,16 @@ const TunisiaSuccessSection = () => {
               >
                 <item.icon size={28} style={{ color: item.color }} />
               </div>
-
-              {/* Content */}
               <h3
                 className={`text-lg font-bold mb-2 ${isDarkMode ? "text-white" : "text-[#0A2E5A]"}`}
               >
                 {item.title}
               </h3>
               <p
-                className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
+                className={`text-sm leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
               >
                 {item.desc}
               </p>
-
-              {/* Hover Glow */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                 style={{
@@ -287,16 +444,20 @@ const TunisiaSuccessSection = () => {
           ))}
         </div>
 
-        {/* Two Columns: Photo Caption + Vision Timeline */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
+        {/*  Two Columns: Why Choose + Vision Timeline */}
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 mb-14 lg:mb-20">
           {/* Left: Why Choose F.B.C */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            className={`p-6 lg:p-8 rounded-3xl ${isDarkMode ? "bg-gradient-to-br from-[#0A2E5A]/30 to-[#D4AF37]/20 border border-[#D4AF37]/30" : "bg-gradient-to-br from-[#0A2E5A]/10 to-[#D4AF37]/10 border border-[#0A2E5A]/20"} backdrop-blur-sm`}
+            className={`p-6 lg:p-8 rounded-3xl ${
+              isDarkMode
+                ? "bg-gradient-to-br from-[#0A2E5A]/30 to-[#D4AF37]/20 border border-[#D4AF37]/30"
+                : "bg-gradient-to-br from-[#0A2E5A]/10 to-[#D4AF37]/10 border border-[#0A2E5A]/20"
+            } backdrop-blur-sm`}
           >
             <h3
-              className={`text-lg font-bold mb-6 ${isDarkMode ? "text-white" : "text-[#0A2E5A]"}`}
+              className={`text-xl lg:text-2xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-[#0A2E5A]"}`}
             >
               Pourquoi nous choisir ?
             </h3>
@@ -310,17 +471,23 @@ const TunisiaSuccessSection = () => {
                 { icon: CheckCircle2, text: "Méthodes adaptées à chacun" },
                 { icon: CheckCircle2, text: "Suivi régulier et transparent" },
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -15 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-center gap-3"
+                >
                   <item.icon
                     size={20}
                     className={isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"}
                   />
                   <span
-                    className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
+                    className={`text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-700"}`}
                   >
                     {item.text}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -329,21 +496,22 @@ const TunisiaSuccessSection = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            className={`p-6 lg:p-8 rounded-3xl ${isDarkMode ? "bg-gray-800/40 border border-gray-700/40" : "bg-gray-50/40 border border-gray-200/40"} backdrop-blur-sm`}
+            className={`p-6 lg:p-8 rounded-3xl ${
+              isDarkMode
+                ? "bg-gray-800/50 border border-gray-700/50"
+                : "bg-white/60 border border-gray-200/50"
+            } backdrop-blur-sm`}
           >
             <h3
-              className={`text-lg font-bold mb-6 ${isDarkMode ? "text-white" : "text-[#0A2E5A]"}`}
+              className={`text-xl lg:text-2xl font-bold mb-6 ${isDarkMode ? "text-white" : "text-[#0A2E5A]"}`}
             >
               Notre Vision
             </h3>
             <div className="relative">
-              {/* Vertical Line */}
               <div
                 className={`absolute left-6 top-4 bottom-4 w-0.5 ${isDarkMode ? "bg-gray-700" : "bg-gray-300"}`}
               />
-
-              {/* Timeline Items */}
-              <div className="space-y-6">
+              <div className="space-y-5">
                 {vision.map((item, index) => (
                   <motion.div
                     key={index}
@@ -352,24 +520,26 @@ const TunisiaSuccessSection = () => {
                     transition={{ delay: index * 0.1 }}
                     className="relative flex items-center gap-4"
                   >
-                    {/* Dot */}
                     <div
-                      className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center ${isDarkMode ? "bg-gray-900 border border-gray-600" : "bg-white border border-gray-200"} shadow-md`}
+                      className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center ${
+                        isDarkMode
+                          ? "bg-gray-900 border border-gray-600"
+                          : "bg-white border border-gray-200"
+                      } shadow-md`}
                     >
                       <item.icon size={20} className="text-[#D4AF37]" />
                     </div>
-                    {/* Content */}
                     <div>
-                      <div
+                      <p
                         className={`text-sm font-bold ${isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"}`}
                       >
                         {item.year}
-                      </div>
-                      <div
+                      </p>
+                      <p
                         className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
                       >
                         {item.label}
-                      </div>
+                      </p>
                     </div>
                   </motion.div>
                 ))}
@@ -378,13 +548,16 @@ const TunisiaSuccessSection = () => {
           </motion.div>
         </div>
 
-        {/* Bottom Banner - Tunisia Commitment */}
+        {/*  Bottom Banner - Full width, modern */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className={`relative overflow-hidden rounded-3xl p-6 lg:p-8 ${isDarkMode ? "bg-gradient-to-r from-[#0A2E5A] to-[#1a4a7a] border border-[#D4AF37]/30" : "bg-gradient-to-r from-[#0A2E5A] to-[#1a4a7a]"}`}
+          className={`relative overflow-hidden rounded-3xl p-6 lg:p-10 ${
+            isDarkMode
+              ? "bg-gradient-to-r from-[#0A2E5A] to-[#1a4a7a] border border-[#D4AF37]/30"
+              : "bg-gradient-to-r from-[#0A2E5A] to-[#1a4a7a]"
+          }`}
         >
-          {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div
               className="absolute inset-0"
@@ -396,65 +569,109 @@ const TunisiaSuccessSection = () => {
           </div>
 
           <div className="relative flex flex-col lg:flex-row items-center justify-between gap-6">
-            {/* Left: Flag + Text */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-5">
               <img
                 src={tunisiaFlag}
                 alt="Tunisie"
-                className="w-16 h-10 rounded-lg shadow-lg border border-white/20"
+                className="w-18 h-12 rounded-lg shadow-lg border border-white/25"
               />
               <div>
-                <h4 className="text-white font-bold text-lg">
+                <h4 className="text-white font-bold text-lg lg:text-xl">
                   Fierté Tunisienne
                 </h4>
-                <p className="text-white/80 text-sm">
+                <p className="text-white/85 text-sm">
                   Une école conçue pour nos réalités
                 </p>
               </div>
             </div>
 
-            {/* Right: Values Row */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-5 lg:gap-8">
               <div className="text-center">
-                <div className="text-2xl font-black text-[#D4AF37]">100%</div>
-                <div className="text-white/70 text-xs">Engagement</div>
+                <p className="text-2xl lg:text-3xl font-black text-[#D4AF37]">
+                  100%
+                </p>
+                <p className="text-white/75 text-xs">Engagement</p>
               </div>
-              <div className="w-px h-10 bg-white/20" />
+              <div className="w-px h-12 bg-white/25" />
               <div className="text-center">
-                <div className="text-2xl font-black text-[#D4AF37]">Humain</div>
-                <div className="text-white/70 text-xs">Au cœur</div>
+                <p className="text-2xl lg:text-3xl font-black text-[#D4AF37]">
+                  Humain
+                </p>
+                <p className="text-white/75 text-xs">Au cœur</p>
               </div>
-              <div className="w-px h-10 bg-white/20" />
+              <div className="w-px h-12 bg-white/25" />
               <div className="text-center">
-                <div className="text-2xl font-black text-[#D4AF37]">
+                <p className="text-2xl lg:text-3xl font-black text-[#D4AF37]">
                   Proximité
-                </div>
-                <div className="text-white/70 text-xs">Garantie</div>
+                </p>
+                <p className="text-white/75 text-xs">Garantie</p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* CTA */}
+        {/* CTA - Centered, prominent */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mt-12"
+          className="text-center mt-12 lg:mt-16"
         >
-          <a
+          <motion.a
             href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-white transition-all shadow-xl hover:shadow-2xl"
             style={{
               background: "linear-gradient(135deg, #0A2E5A 0%, #1a4a7a 100%)",
+              border: "1px solid rgba(212, 175, 55, 0.4)",
             }}
           >
+            <Sparkles size={18} className="fill-white" />
             <span>Rejoignez l'aventure F.B.C</span>
             <ArrowRight
               size={18}
               className="group-hover:translate-x-1 transition-transform"
             />
-          </a>
+          </motion.a>
+          <p
+            className={`mt-4 text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}
+          >
+            Premier entretien gratuit • Réponse sous 24h • Sans engagement
+          </p>
         </motion.div>
+      </div>
+
+      {/* Floating decorative particles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -30, 0],
+              x: [0, i % 2 === 0 ? 20 : -20, 0],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 12 + i,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.7,
+            }}
+            className={`absolute w-2 h-2 rounded-full ${
+              i % 2 === 0
+                ? isDarkMode
+                  ? "bg-[#D4AF37]/35"
+                  : "bg-[#D4AF37]/20"
+                : isDarkMode
+                  ? "bg-[#0A2E5A]/35"
+                  : "bg-[#0A2E5A]/20"
+            }`}
+            style={{
+              top: `${10 + i * 9}%`,
+              left: `${5 + i * 10}%`,
+            }}
+          />
+        ))}
       </div>
     </section>
   );

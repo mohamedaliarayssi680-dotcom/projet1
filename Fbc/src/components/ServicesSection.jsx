@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import {
   BookOpen,
@@ -14,14 +14,7 @@ import {
 
 const ServicesSection = () => {
   const { isDarkMode } = useTheme();
-  const { scrollY } = useScroll();
 
-  // Parallax effect for icons
-  const y1 = useTransform(scrollY, [0, 500], [0, -30]);
-  const y2 = useTransform(scrollY, [0, 500], [0, 30]);
-  const y3 = useTransform(scrollY, [0, 500], [0, -20]);
-
-  // ✅ Services adaptés aux 4 domaines F.B.C + soutien linguistique & orientation
   const services = [
     {
       icon: BookOpen,
@@ -29,6 +22,8 @@ const ServicesSection = () => {
       tag: "Tous niveaux",
       color: "#0A2E5A",
       delay: 0,
+      phrase:
+        "Des méthodes adaptées transforment chaque difficulté en opportunité de progression, avec un accompagnement qui valorise le potentiel unique de chacun.",
     },
     {
       icon: Heart,
@@ -36,6 +31,8 @@ const ServicesSection = () => {
       tag: "Gestes d'urgence",
       color: "#D4AF37",
       delay: 0.1,
+      phrase:
+        "Apprendre les gestes qui sauvent, c'est gagner en confiance pour protéger ses proches et intervenir avec calme et efficacité en situation critique.",
     },
     {
       icon: Laptop,
@@ -43,6 +40,8 @@ const ServicesSection = () => {
       tag: "Bureautique • Internet",
       color: "#0A2E5A",
       delay: 0.2,
+      phrase:
+        "Maîtriser les outils digitaux ouvre des portes : autonomie dans les démarches, efficacité professionnelle et connexion avec les opportunités de demain.",
     },
     {
       icon: Users,
@@ -50,6 +49,8 @@ const ServicesSection = () => {
       tag: "Accompagnement personnalisé",
       color: "#D4AF37",
       delay: 0.3,
+      phrase:
+        "Chaque parcours est construit ensemble, dans un environnement bienveillant où l'on ose avancer à son rythme vers des objectifs concrets et épanouissants.",
     },
     {
       icon: MessageCircle,
@@ -57,6 +58,8 @@ const ServicesSection = () => {
       tag: "Français • Langues",
       color: "#0A2E5A",
       delay: 0.4,
+      phrase:
+        "Retrouver l'aisance à l'oral et à l'écrit, c'est reprendre confiance en sa capacité à s'exprimer, à partager ses idées et à s'ouvrir au monde.",
     },
     {
       icon: Target,
@@ -64,38 +67,30 @@ const ServicesSection = () => {
       tag: "Conseil personnalisé",
       color: "#D4AF37",
       delay: 0.5,
+      phrase:
+        "Clarifier ses aspirations et définir un plan d'action concret permet de transformer ses rêves en étapes réalistes vers une carrière épanouissante.",
     },
   ];
 
   return (
     <section
       id="formations"
-      className={`relative py-24 lg:py-32 overflow-hidden ${
-        isDarkMode ? "bg-gray-900" : "bg-white"
-      }`}
+      className={`relative overflow-hidden ${isDarkMode ? "bg-gray-900" : "bg-white"}`}
     >
-      {/* Minimal Background */}
-      <div className="absolute inset-0 opacity-30">
-        <div
-          className={`absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl ${
-            isDarkMode ? "bg-[#0A2E5A]/20" : "bg-[#0A2E5A]/5"
-          }`}
-        />
-        <div
-          className={`absolute bottom-0 right-1/4 w-80 h-80 rounded-full blur-3xl ${
-            isDarkMode ? "bg-[#D4AF37]/20" : "bg-[#D4AF37]/5"
-          }`}
-        />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header - Ultra Minimal */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
-        >
-          <div className="inline-flex items-center gap-2 justify-center mb-4">
+      {/*  Full-width rectangular frame for header */}
+      <div
+        className={`w-full py-12 lg:py-16 ${
+          isDarkMode
+            ? "bg-gradient-to-r from-[#0A2E5A]/30 via-[#0A2E5A]/20 to-[#D4AF37]/20 border-y border-[#D4AF37]/20"
+            : "bg-gradient-to-r from-[#0A2E5A]/10 via-[#0A2E5A]/5 to-[#D4AF37]/10 border-y border-[#0A2E5A]/20"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 justify-center mb-4"
+          >
             <Sparkles
               size={16}
               className={isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"}
@@ -105,125 +100,141 @@ const ServicesSection = () => {
             >
               Nos Domaines
             </span>
-          </div>
+          </motion.div>
 
-          <h2
-            className={`text-4xl md:text-6xl font-black mb-3 ${
-              isDarkMode ? "text-white" : "text-[#0A2E5A]"
-            }`}
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className={`text-4xl md:text-5xl font-black mb-3 ${isDarkMode ? "text-white" : "text-[#0A2E5A]"}`}
           >
             Nos{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#F2D06B]">
               formations
             </span>
-          </h2>
-          <p
-            className={`text-lg ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className={`text-base max-w-2xl mx-auto ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}
           >
             Simples. Efficaces. Personnalisées.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
+      </div>
 
-        {/* 3D Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {/* Decorative background blobs */}
+      <div className="absolute inset-0 opacity-25 pointer-events-none">
+        <div
+          className={`absolute top-20 left-1/4 w-80 h-80 rounded-full blur-3xl ${
+            isDarkMode ? "bg-[#0A2E5A]/20" : "bg-[#0A2E5A]/5"
+          }`}
+        />
+        <div
+          className={`absolute bottom-20 right-1/4 w-72 h-72 rounded-full blur-3xl ${
+            isDarkMode ? "bg-[#D4AF37]/20" : "bg-[#D4AF37]/5"
+          }`}
+        />
+      </div>
+
+      {/* Cards Grid */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: service.delay, duration: 0.5 }}
-              whileHover={{ y: -10, rotateX: 5, rotateY: 5 }}
+              whileHover={{ y: -6 }}
               className="group relative"
-              style={{
-                perspective: "1000px",
-                transformStyle: "preserve-3d",
-              }}
             >
-              {/* Card */}
               <div
-                className={`relative rounded-3xl p-8 h-64 flex flex-col justify-between transition-all duration-500 cursor-pointer ${
+                className={`relative rounded-2xl p-6 h-auto min-h-[290px] flex flex-col transition-all duration-400 cursor-pointer ${
                   isDarkMode
-                    ? "bg-gray-800/40 border border-gray-700/40 hover:border-[#D4AF37]/40"
-                    : "bg-gray-50/40 border border-gray-200/40 hover:border-[#0A2E5A]/30"
-                } backdrop-blur-sm shadow-lg hover:shadow-2xl`}
+                    ? "bg-gray-800/50 border border-gray-700/50 hover:border-[#D4AF37]/50"
+                    : "bg-gray-50/50 border border-gray-200/50 hover:border-[#0A2E5A]/40"
+                } backdrop-blur-sm shadow-md hover:shadow-xl`}
               >
-                {/* 3D Icon - Floating */}
-                <motion.div
-                  style={{
-                    y: index % 2 === 0 ? y1 : index % 3 === 0 ? y2 : y3,
-                  }}
-                  className="relative"
-                >
+                {/*  Icon - FIXED POSITION (same for all cards) */}
+                <div className="relative mb-5">
                   <div
-                    className="w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110"
+                    className="w-16 h-16 rounded-xl flex items-center justify-center transition-transform duration-400 group-hover:scale-105"
                     style={{
-                      background: `linear-gradient(145deg, ${service.color}25, ${service.color}40)`,
-                      boxShadow: `
-                        0 20px 50px ${service.color}35,
-                        inset 0 2px 4px rgba(255,255,255,0.4),
-                        inset 0 -2px 4px rgba(0,0,0,0.15)
-                      `,
-                      border: `2px solid ${service.color}50`,
+                      background: `linear-gradient(135deg, ${service.color}20, ${service.color}35)`,
+                      boxShadow: `0 12px 35px ${service.color}25`,
+                      border: `2px solid ${service.color}45`,
                     }}
                   >
                     <service.icon
-                      size={36}
-                      className="transition-transform duration-500 group-hover:rotate-6"
+                      size={30}
+                      className="transition-transform duration-400"
                       style={{
                         color: service.color,
-                        filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3))",
+                        filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.25))",
                       }}
                     />
                   </div>
-
-                  {/* Floating particles */}
                   <motion.div
                     animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.6, 1, 0.6],
+                      scale: [1, 1.15, 1],
+                      opacity: [0.5, 0.9, 0.5],
                     }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className={`absolute -top-2 -right-2 w-4 h-4 rounded-full ${
+                    transition={{ duration: 2.2, repeat: Infinity }}
+                    className={`absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full ${
                       isDarkMode ? "bg-[#D4AF37]" : "bg-[#0A2E5A]"
-                    } opacity-60`}
+                    } opacity-55`}
                   />
-                </motion.div>
+                </div>
 
-                {/* Content - Minimal */}
-                <div>
-                  <h3
-                    className={`text-xl font-bold mb-1 ${
-                      isDarkMode ? "text-white" : "text-[#0A2E5A]"
+                {/* Content */}
+                <div className="flex-1 space-y-3">
+                  <div>
+                    <h3
+                      className={`text-lg font-bold mb-1.5 ${
+                        isDarkMode ? "text-white" : "text-[#0A2E5A]"
+                      }`}
+                    >
+                      {service.title}
+                    </h3>
+                    <span
+                      className={`text-xs font-semibold px-2.5 py-1 rounded-lg ${
+                        isDarkMode
+                          ? "bg-[#0A2E5A]/20 text-[#D4AF37]"
+                          : "bg-[#0A2E5A]/10 text-[#0A2E5A]"
+                      }`}
+                    >
+                      {service.tag}
+                    </span>
+                  </div>
+                  <p
+                    className={`text-xs leading-relaxed ${
+                      isDarkMode ? "text-gray-300" : "text-gray-600"
                     }`}
                   >
-                    {service.title}
-                  </h3>
-                  <span
-                    className={`text-sm font-medium ${
-                      isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
-                  >
-                    {service.tag}
-                  </span>
+                    {service.phrase}
+                  </p>
                 </div>
 
                 {/* Arrow Indicator */}
                 <div
-                  className={`self-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                  className={`self-end mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
                     isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"
                   }`}
                 >
                   <ArrowUpRight
-                    size={24}
-                    className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                    size={20}
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                   />
                 </div>
 
                 {/* Glow on Hover */}
                 <div
-                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
                   style={{
-                    background: `radial-gradient(circle at 30% 30%, ${service.color}20 0%, transparent 60%)`,
+                    background: `radial-gradient(circle at 25% 25%, ${service.color}15 0%, transparent 65%)`,
                   }}
                 />
               </div>
@@ -231,24 +242,24 @@ const ServicesSection = () => {
           ))}
         </div>
 
-        {/* Minimal CTA */}
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mt-20"
+          className="text-center mt-14"
         >
           <a
             href="/contact"
-            className={`inline-flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+            className={`inline-flex items-center gap-2.5 px-5.5 py-3 rounded-xl font-semibold transition-all duration-300 ${
               isDarkMode
-                ? "text-[#D4AF37] hover:text-[#F2D06B] border border-[#D4AF37]/30 hover:border-[#D4AF37]/60"
-                : "text-[#0A2E5A] hover:text-[#D4AF37] border border-[#0A2E5A]/20 hover:border-[#0A2E5A]/40"
+                ? "text-[#D4AF37] hover:text-[#F2D06B] border border-[#D4AF37]/35 hover:border-[#D4AF37]/60"
+                : "text-[#0A2E5A] hover:text-[#D4AF37] border border-[#0A2E5A]/25 hover:border-[#0A2E5A]/45"
             }`}
           >
             <span>Découvrir nos formations</span>
             <ArrowUpRight
-              size={18}
-              className="transition-transform group-hover:translate-x-1"
+              size={17}
+              className="transition-transform group-hover:translate-x-0.5"
             />
           </a>
         </motion.div>

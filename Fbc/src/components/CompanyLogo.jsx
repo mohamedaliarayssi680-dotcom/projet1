@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "../context/ThemeContext";
 import {
   GraduationCap,
@@ -13,9 +13,11 @@ import {
 
 const CompanyLogo = () => {
   const [hoveredLogo, setHoveredLogo] = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
   const { isDarkMode } = useTheme();
 
-  // Icons representing F.B.C's 4 domains + support
+  useEffect(() => setIsMounted(true), []);
+
   const partners = [
     { name: "Soutien Scolaire", icon: BookOpen, color: "#0A2E5A" },
     { name: "Santé & Secours", icon: Heart, color: "#D4AF37" },
@@ -25,33 +27,60 @@ const CompanyLogo = () => {
     { name: "Réussite", icon: Sparkles, color: "#D4AF37" },
   ];
 
+  // Helper pour l'effet de brillance au hover
+  const ShineEffect = ({ isActive, color }) => (
+    <div
+      className={`absolute inset-0 rounded-xl overflow-hidden pointer-events-none transition-opacity duration-300 ${
+        isActive ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div
+        className="absolute inset-0 animate-shine"
+        style={{
+          background: `linear-gradient(
+            105deg,
+            transparent 0%,
+            ${color}15 20%,
+            ${color}40 40%,
+            ${color}15 60%,
+            transparent 100%
+          )`,
+          transform: "translateX(-100%)",
+        }}
+      />
+    </div>
+  );
+
   return (
     <section
-      className={`w-full py-12 lg:py-16 overflow-hidden transition-colors duration-300 ${
-        isDarkMode ? "bg-gray-900/50" : "bg-gray-50/50"
+      className={`w-full py-12 lg:py-16 overflow-hidden transition-colors duration-500 ${
+        isDarkMode ? "bg-gray-900/70" : "bg-gradient-to-b from-gray-50 to-white"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
-          {/* Left Content Section */}
+          {/* === LEFT CONTENT SECTION === */}
           <div className="lg:w-80 xl:w-96 flex-shrink-0">
-            <div className="relative">
-              {/* Decorative background - F.B.C colors */}
+            <div className="relative group">
+              {/* Animated background glow */}
               <div
-                className={`absolute -inset-4 rounded-2xl transform rotate-1 transition-colors duration-300 ${
+                className={`absolute -inset-4 rounded-2xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500 ${
                   isDarkMode
-                    ? "bg-gradient-to-r from-[#0A2E5A]/30 to-[#D4AF37]/20"
-                    : "bg-gradient-to-r from-[#0A2E5A]/10 to-[#D4AF37]/10"
+                    ? "bg-gradient-to-r from-[#0A2E5A]/40 to-[#D4AF37]/30"
+                    : "bg-gradient-to-r from-[#0A2E5A]/20 to-[#D4AF37]/15"
                 }`}
-              ></div>
+              />
 
-              {/* Main content card */}
+              {/* Main card with glass effect */}
               <div
-                className={`relative rounded-xl shadow-lg p-6 lg:p-8 transition-all duration-300 hover:shadow-xl border ${
-                  isDarkMode
-                    ? "bg-gray-800 border-gray-700 shadow-[#0A2E5A]/20"
-                    : "bg-white border-gray-200 shadow-[#0A2E5A]/10"
-                }`}
+                className={`relative rounded-2xl p-6 lg:p-8 transition-all duration-500 
+                  hover:shadow-2xl border backdrop-blur-sm
+                  ${
+                    isDarkMode
+                      ? "bg-gray-800/80 border-gray-700/60 shadow-[#0A2E5A]/30"
+                      : "bg-white/90 border-gray-200/60 shadow-[#0A2E5A]/15"
+                  }
+                `}
               >
                 <div
                   className={`border-l-4 pl-6 transition-colors duration-300 ${
@@ -60,12 +89,12 @@ const CompanyLogo = () => {
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      className={`w-3 h-3 rounded-full transition-all duration-500 ${
                         isDarkMode ? "bg-[#D4AF37]" : "bg-[#0A2E5A]"
                       } animate-pulse`}
                     />
                     <span
-                      className={`text-sm font-medium uppercase tracking-wider transition-colors duration-300 ${
+                      className={`text-sm font-semibold uppercase tracking-wider transition-colors duration-300 ${
                         isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"
                       }`}
                     >
@@ -81,8 +110,10 @@ const CompanyLogo = () => {
                     Formation &
                   </h3>
                   <p
-                    className={`text-lg lg:text-xl font-semibold mb-4 transition-colors duration-300 ${
-                      isDarkMode ? "text-[#D4AF37]" : "text-[#0A2E5A]"
+                    className={`text-lg lg:text-xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r ${
+                      isDarkMode
+                        ? "from-[#D4AF37] to-[#D4AF37]/70"
+                        : "from-[#0A2E5A] to-[#0A2E5A]/70"
                     }`}
                   >
                     Accompagnement Global
@@ -113,27 +144,29 @@ const CompanyLogo = () => {
             </div>
           </div>
 
-          {/* Right Logo Marquee Section */}
+          {/* === RIGHT MARQUEE SECTION === */}
           <div className="flex-1 min-w-0">
             <div className="relative">
-              {/* Gradient overlays */}
+              {/* Gradient fades */}
               <div
-                className={`absolute left-0 top-0 bottom-0 w-8 lg:w-16 bg-gradient-to-r to-transparent z-20 pointer-events-none transition-colors duration-300 ${
-                  isDarkMode ? "from-gray-900" : "from-gray-50"
+                className={`absolute left-0 top-0 bottom-0 w-12 lg:w-20 bg-gradient-to-r to-transparent z-20 pointer-events-none transition-colors duration-300 ${
+                  isDarkMode ? "from-gray-900/90" : "from-gray-50/90"
                 }`}
-              ></div>
+              />
               <div
-                className={`absolute right-0 top-0 bottom-0 w-8 lg:w-16 bg-gradient-to-l to-transparent z-20 pointer-events-none transition-colors duration-300 ${
-                  isDarkMode ? "from-gray-900" : "from-white"
+                className={`absolute right-0 top-0 bottom-0 w-12 lg:w-20 bg-gradient-to-l to-transparent z-20 pointer-events-none transition-colors duration-300 ${
+                  isDarkMode ? "from-gray-900/90" : "from-white/90"
                 }`}
-              ></div>
+              />
 
-              {/* Marquee container */}
-              <div className="overflow-hidden py-4">
+              {/* Marquee */}
+              <div className="overflow-hidden py-2">
                 <div
-                  className="flex"
+                  className="flex items-center"
                   style={{
-                    animation: "marquee 30s linear infinite",
+                    animation: isMounted
+                      ? "marquee 35s linear infinite"
+                      : "none",
                   }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.animationPlayState = "paused")
@@ -142,190 +175,216 @@ const CompanyLogo = () => {
                     (e.currentTarget.style.animationPlayState = "running")
                   }
                 >
-                  {/* First set of logos */}
-                  {partners.map((partner, index) => (
-                    <div
-                      key={index}
-                      className={`flex-shrink-0 mx-6 lg:mx-10 group cursor-pointer transition-transform duration-300 hover:scale-105`}
-                      onMouseEnter={() => setHoveredLogo(index)}
-                      onMouseLeave={() => setHoveredLogo(null)}
-                    >
-                      <div
-                        className={`relative rounded-xl p-4 lg:p-5 transition-all duration-300 ${
-                          isDarkMode
-                            ? "bg-gray-800/50 hover:bg-gray-800"
-                            : "bg-white hover:bg-gray-50"
-                        } border ${
-                          isDarkMode
-                            ? "border-gray-700 hover:border-[#D4AF37]/50"
-                            : "border-gray-200 hover:border-[#0A2E5A]/50"
-                        }`}
-                      >
-                        <div
-                          className={`absolute inset-0 rounded-xl transition-all duration-300 ${
-                            hoveredLogo === index
-                              ? isDarkMode
-                                ? "bg-gradient-to-r from-[#0A2E5A]/20 to-[#D4AF37]/10 scale-105"
-                                : "bg-gradient-to-r from-[#0A2E5A]/10 to-[#D4AF37]/5 scale-105"
-                              : "bg-transparent"
-                          }`}
-                        />
-                        <div className="relative flex flex-col items-center justify-center gap-3">
-                          {/* 3D-style Icon */}
-                          <div
-                            className={`w-12 h-12 lg:w-14 lg:h-14 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                              hoveredLogo === index
-                                ? "transform -translate-y-1 shadow-lg"
-                                : ""
-                            }`}
-                            style={{
-                              background: `linear-gradient(135deg, ${partner.color}20, ${partner.color}40)`,
-                              boxShadow:
-                                hoveredLogo === index
-                                  ? `0 10px 30px ${partner.color}40`
-                                  : "none",
-                            }}
-                          >
-                            <partner.icon
-                              size={28}
-                              className="transition-all duration-300"
-                              style={{ color: partner.color }}
-                            />
-                          </div>
-                          {/* Partner Name */}
-                          <span
-                            className={`text-xs lg:text-sm font-medium text-center transition-colors duration-300 ${
-                              isDarkMode ? "text-gray-300" : "text-gray-700"
-                            }`}
-                          >
-                            {partner.name}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  {[...partners, ...partners].map((partner, index) => {
+                    const isDuplicate = index >= partners.length;
+                    const key = isDuplicate ? `dup-${index}` : index;
+                    const partnerIndex = isDuplicate
+                      ? index - partners.length
+                      : index;
+                    const isHovered = hoveredLogo === partnerIndex;
 
-                  {/* Duplicate set for seamless loop */}
-                  {partners.map((partner, index) => (
-                    <div
-                      key={`duplicate-${index}`}
-                      className={`flex-shrink-0 mx-6 lg:mx-10 group cursor-pointer transition-transform duration-300 hover:scale-105`}
-                      onMouseEnter={() => setHoveredLogo(`dup-${index}`)}
-                      onMouseLeave={() => setHoveredLogo(null)}
-                    >
+                    return (
                       <div
-                        className={`relative rounded-xl p-4 lg:p-5 transition-all duration-300 ${
-                          isDarkMode
-                            ? "bg-gray-800/50 hover:bg-gray-800"
-                            : "bg-white hover:bg-gray-50"
-                        } border ${
-                          isDarkMode
-                            ? "border-gray-700 hover:border-[#D4AF37]/50"
-                            : "border-gray-200 hover:border-[#0A2E5A]/50"
-                        }`}
+                        key={key}
+                        className="flex-shrink-0 mx-4 lg:mx-6 group cursor-pointer"
+                        onMouseEnter={() => setHoveredLogo(partnerIndex)}
+                        onMouseLeave={() => setHoveredLogo(null)}
                       >
+                        {/* Animated Card Container */}
                         <div
-                          className={`absolute inset-0 rounded-xl transition-all duration-300 ${
-                            hoveredLogo === `dup-${index}`
-                              ? isDarkMode
-                                ? "bg-gradient-to-r from-[#0A2E5A]/20 to-[#D4AF37]/10 scale-105"
-                                : "bg-gradient-to-r from-[#0A2E5A]/10 to-[#D4AF37]/5 scale-105"
-                              : "bg-transparent"
-                          }`}
-                        />
-                        <div className="relative flex flex-col items-center justify-center gap-3">
-                          {/* 3D-style Icon */}
+                          className={`relative rounded-2xl p-4 lg:p-5 transition-all duration-500 ease-out
+                            ${isHovered ? "scale-110 z-10" : "scale-100"}
+                            ${
+                              isDarkMode
+                                ? "bg-gray-800/60 hover:bg-gray-800/90"
+                                : "bg-white/80 hover:bg-white"
+                            }
+                            border backdrop-blur-sm
+                            ${
+                              isDarkMode
+                                ? "border-gray-700/50 hover:border-transparent"
+                                : "border-gray-200/50 hover:border-transparent"
+                            }
+                          `}
+                          style={{
+                            boxShadow: isHovered
+                              ? `0 20px 40px -10px ${partner.color}50`
+                              : isDarkMode
+                                ? "0 4px 20px rgba(0,0,0,0.3)"
+                                : "0 4px 20px rgba(10,46,90,0.08)",
+                          }}
+                        >
+                          {/* Animated border gradient */}
                           <div
-                            className={`w-12 h-12 lg:w-14 lg:h-14 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                              hoveredLogo === `dup-${index}`
-                                ? "transform -translate-y-1 shadow-lg"
-                                : ""
+                            className={`absolute inset-0 rounded-2xl p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                              isHovered ? "opacity-100" : ""
                             }`}
                             style={{
-                              background: `linear-gradient(135deg, ${partner.color}20, ${partner.color}40)`,
-                              boxShadow:
-                                hoveredLogo === `dup-${index}`
-                                  ? `0 10px 30px ${partner.color}40`
-                                  : "none",
+                              background: `linear-gradient(135deg, ${partner.color}, ${partner.color}80, transparent)`,
+                              mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                              maskComposite: "xor",
+                              WebkitMaskComposite: "xor",
                             }}
-                          >
-                            <partner.icon
-                              size={28}
-                              className="transition-all duration-300"
-                              style={{ color: partner.color }}
+                          />
+
+                          <ShineEffect
+                            isActive={isHovered}
+                            color={partner.color}
+                          />
+
+                          <div className="relative flex flex-col items-center gap-3">
+                            {/* 3D Floating Icon */}
+                            <div
+                              className={`w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center 
+                                transition-all duration-500 ease-out
+                                ${isHovered ? "animate-float" : ""}
+                              `}
+                              style={{
+                                background: `linear-gradient(135deg, ${partner.color}25, ${partner.color}10)`,
+                                border: `1px solid ${partner.color}40`,
+                                boxShadow: isHovered
+                                  ? `0 0 30px ${partner.color}60, inset 0 1px 1px ${partner.color}30`
+                                  : `0 4px 15px ${partner.color}20`,
+                                transform: isHovered
+                                  ? "translateY(-4px) rotate(2deg)"
+                                  : "translateY(0)",
+                              }}
+                            >
+                              <div
+                                className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                                style={{
+                                  background: `radial-gradient(circle at 30% 30%, ${partner.color}30, transparent 60%)`,
+                                }}
+                              />
+                              <partner.icon
+                                size={30}
+                                className="transition-all duration-300 drop-shadow-sm"
+                                style={{
+                                  color: partner.color,
+                                  filter: isHovered
+                                    ? `drop-shadow(0 0 8px ${partner.color}80)`
+                                    : "none",
+                                  transform: isHovered
+                                    ? "scale(1.1)"
+                                    : "scale(1)",
+                                }}
+                              />
+                            </div>
+
+                            {/* Partner Name with gradient */}
+                            <span
+                              className={`text-xs lg:text-sm font-semibold text-center transition-all duration-300
+                                ${isDarkMode ? "text-gray-300" : "text-gray-700"}
+                                ${isHovered ? "tracking-wide" : ""}
+                              `}
+                              style={{
+                                background: isHovered
+                                  ? `linear-gradient(135deg, ${partner.color}, ${partner.color}cc)`
+                                  : "none",
+                                WebkitBackgroundClip: isHovered
+                                  ? "text"
+                                  : "unset",
+                                WebkitTextFillColor: isHovered
+                                  ? "transparent"
+                                  : "unset",
+                              }}
+                            >
+                              {partner.name}
+                            </span>
+
+                            {/* Subtle pulse indicator */}
+                            <div
+                              className={`absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border-2 transition-all duration-300 ${
+                                isDarkMode ? "border-gray-800" : "border-white"
+                              } ${isHovered ? "scale-100 opacity-100" : "scale-75 opacity-60"}`}
+                              style={{ backgroundColor: partner.color }}
                             />
                           </div>
-                          {/* Partner Name */}
-                          <span
-                            className={`text-xs lg:text-sm font-medium text-center transition-colors duration-300 ${
-                              isDarkMode ? "text-gray-300" : "text-gray-700"
-                            }`}
-                          >
-                            {partner.name}
-                          </span>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
-            {/* Statistics - Updated phrases */}
+            {/* === STATISTICS === */}
             <div
-              className={`flex flex-wrap justify-center lg:justify-start gap-4 lg:gap-6 mt-6 text-sm transition-colors duration-300 ${
+              className={`flex flex-wrap justify-center lg:justify-start gap-4 lg:gap-6 mt-8 text-sm transition-colors duration-300 ${
                 isDarkMode ? "text-gray-400" : "text-gray-600"
               }`}
             >
-              <div className="flex items-center group cursor-pointer">
+              {[
+                {
+                  text: "4 Domaines de Formation",
+                  color: isDarkMode ? "#D4AF37" : "#0A2E5A",
+                  altColor: isDarkMode ? "#0A2E5A" : "#D4AF37",
+                },
+                {
+                  text: "Accompagnement Sur Mesure",
+                  color: isDarkMode ? "#0A2E5A" : "#D4AF37",
+                  altColor: isDarkMode ? "#D4AF37" : "#0A2E5A",
+                },
+                {
+                  text: "Réussite Garantie",
+                  color: "#22c55e",
+                  altColor: "#22c55e",
+                },
+              ].map((stat, idx) => (
                 <div
-                  className={`w-2.5 h-2.5 rounded-full mr-2.5 transition-all duration-300 group-hover:scale-125 ${
-                    isDarkMode ? "bg-[#D4AF37]" : "bg-[#0A2E5A]"
-                  }`}
-                />
-                <span
-                  className={`group-hover:text-[#D4AF37] dark:group-hover:text-[#D4AF37] transition-colors duration-200 font-medium`}
+                  key={idx}
+                  className="flex items-center group cursor-pointer"
                 >
-                  4 Domaines de Formation
-                </span>
-              </div>
-              <div className="flex items-center group cursor-pointer">
-                <div
-                  className={`w-2.5 h-2.5 rounded-full mr-2.5 transition-all duration-300 group-hover:scale-125 ${
-                    isDarkMode ? "bg-[#0A2E5A]" : "bg-[#D4AF37]"
-                  }`}
-                />
-                <span
-                  className={`group-hover:text-[#0A2E5A] dark:group-hover:text-[#0A2E5A] transition-colors duration-200 font-medium`}
-                >
-                  Accompagnement Sur Mesure
-                </span>
-              </div>
-              <div className="flex items-center group cursor-pointer">
-                <div
-                  className={`w-2.5 h-2.5 rounded-full mr-2.5 transition-all duration-300 group-hover:scale-125 ${
-                    isDarkMode ? "bg-green-500" : "bg-green-600"
-                  }`}
-                />
-                <span
-                  className={`group-hover:text-green-500 transition-colors duration-200 font-medium`}
-                >
-                  Réussite Garanti
-                </span>
-              </div>
+                  <div
+                    className={`w-2.5 h-2.5 rounded-full mr-2.5 transition-all duration-300 group-hover:scale-125 ring-2 ring-transparent group-hover:ring-offset-2 ${
+                      isDarkMode
+                        ? "group-hover:ring-gray-900"
+                        : "group-hover:ring-white"
+                    }`}
+                    style={{ backgroundColor: stat.color }}
+                  />
+                  <span
+                    className="transition-all duration-200 font-medium group-hover:font-semibold"
+                    style={{
+                      color: isDarkMode ? "#e5e7eb" : "#374151",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.color = stat.color)
+                    }
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "")}
+                  >
+                    {stat.text}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      <style jsx>{`
+      {/* ✅ CORRECTION : style sans l'attribut "jsx" */}
+      <style>{`
         @keyframes marquee {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-6px) rotate(1deg); }
+        }
+
+        @keyframes shine {
+          0% { transform: translateX(-100%) skewX(-15deg); }
+          100% { transform: translateX(200%) skewX(-15deg); }
+        }
+
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-shine {
+          animation: shine 1.2s ease-out forwards;
         }
       `}</style>
     </section>

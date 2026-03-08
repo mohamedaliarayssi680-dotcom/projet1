@@ -16,7 +16,7 @@ const JourneySection = () => {
   const { isDarkMode } = useTheme();
   const [activeStep, setActiveStep] = useState(0);
 
-  // ✅ Steps adaptés aux 4 domaines F.B.C + accompagnement
+  //  Steps adaptés aux 4 domaines F.B.C + accompagnement
   const steps = [
     {
       icon: BookOpen,
@@ -44,7 +44,7 @@ const JourneySection = () => {
     },
   ];
 
-  // ✅ Stats pertinentes pour F.B.C (remplacement de 10K+ Étudiants / 500+ Cours)
+  //  Stats pertinentes pour F.B.C (remplacement de 10K+ Étudiants / 500+ Cours)
   const stats = [
     { value: "4", label: "Domaines de Formation" },
     { value: "98%", label: "Taux de Satisfaction" },

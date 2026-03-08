@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-// ✅ Import des images depuis assets
+//  Import des images depuis assets
 import sch26 from "../assets/sch26.jpeg"; // Formation Santé
 import sch27 from "../assets/sch27.jpeg"; // Formation Numérique
 
